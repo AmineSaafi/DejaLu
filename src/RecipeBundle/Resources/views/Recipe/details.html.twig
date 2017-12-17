@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Recipe : # {{ recipe.id }}</h3>
+                    <a href="{{ path('recipe_list') }}" class="btn btn-info">Return to the home page</a>
+                </div>
+                <div class="panel-body">
+                    <table class="table">
+                        <tr>
+                            <td>Name</td>
+                            <td>{{ recipe.title }}</td>
+                        </tr>
+                        <tr>
+                            <td>Description</td>
+                            <td>{{ recipe.description }}</td>
+                        </tr>
+                        <tr>
+                            <td>Aliments</td>
+                            <td>
+                                <ul>
+                                    {% for f in recipe.aliments %}
+                                        <li>{{ f.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

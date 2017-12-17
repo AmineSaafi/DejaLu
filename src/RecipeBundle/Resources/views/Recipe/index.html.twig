@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3>Recipe List</h3>
+                    <div class="button">
+                        <a href="{{ path('recipe_create') }}" class="btn btn-success">New Recipe</a>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    {#<div class="count">
+                        {{ pagination.getTotalItemCount }}
+                    </div>#}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            {# sorting of properties based on query components #}
+                            <th>{{ knp_pagination_sortable(pagination, 'Id', 'a.id') }}</th>
+                            <th{% if pagination.isSorted('a.title') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(pagination, 'Title', 'a.title') }}</th>
+                            <th>{{ knp_pagination_sortable(pagination, 'Decription', 'a.description') }}</th>
+                            <th>Aliments</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for recipe in pagination %}
+                        <tr>
+                            <td>{{ recipe.id }}</td>
+                            <td>{{ recipe.title }}</td>
+                            <td>{{ recipe.description }}</td>
+                            <td>
+                                <ul>
+                                    {% for f in recipe.aliments %}
+                                            <li>{{ f.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                            <td>
+                                <a href="details/{{ recipe.id }}" class="btn btn-info">Details</a>
+                                <a href="edit/{{ recipe.id }}" class="btn btn-warning">Edit</a>
+                                <a href="delete/{{ recipe.id }}" onclick="return confirm('Are you sure?');" class="btn btn-danger">Delete</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <!-- Pagination -->
+                    <div class="navigation text-center">
+                        {{ knp_pagination_render(pagination) }}
+                    </div>
+                    <!-- End Pagination -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
